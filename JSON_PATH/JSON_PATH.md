@@ -1,3 +1,4 @@
+### JSONPath Support
 ```
 kubectl get service -n kube-system  -o=custom-columns=NAME:.metadata.name,IP:.spec.clusterIP,PORT:.spec.ports[*].targetPort #Get POD name and IP and target Port of Service`
 kubectl get pods -o custom-columns='DATA:spec.containers[*].image' # Get Container Image
