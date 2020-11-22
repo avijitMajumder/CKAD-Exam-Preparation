@@ -5,7 +5,7 @@
 *	maxUnavailable and maxSurge
 *	maxSurge: 5 maxUnavailable: 5
 *	maxSurge: 10 maxUnavailable: 10
-##1) Basic Deployment Example
+## 1) Basic Deployment Example
 nano myDeployment.yaml 
 
 apiVersion: apps/v1
