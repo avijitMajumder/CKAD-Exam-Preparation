@@ -1,5 +1,5 @@
-#This tutorial will cover the following topics:
-##•	Basic Deployment Example
+# This tutorial will cover the following topics:
+## Basic Deployment Example
 *	terminationGracePeriodSeconds: 0
 *	Updating the image in a Pod
 *	maxUnavailable and maxSurge
