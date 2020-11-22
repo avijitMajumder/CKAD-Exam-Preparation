@@ -33,6 +33,9 @@ spec:
         imagePullPolicy: IfNotPresent
         command: ['sh', '-c', 'echo Container 1 is Running ; sleep 3600']
         ```
+        
+        
+        
 template defines the Pod we want
 replicas defines we want 10 identical copies running 
 strategy type: RollingUpdate - we will see how updates work later. ( RollingUpdate is the default value )
