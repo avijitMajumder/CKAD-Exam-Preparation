@@ -7,7 +7,7 @@
 *	maxSurge: 10 maxUnavailable: 10
 ## 1) Basic Deployment Example
 nano myDeployment.yaml 
-'''
+[
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,9 +30,8 @@ spec:
       - name: busybox
         image: busybox
         imagePullPolicy: IfNotPresent
-        
         command: ['sh', '-c', 'echo Container 1 is Running ; sleep 3600']
- '''
+ ]
 template defines the Pod we want
 replicas defines we want 10 identical copies running 
 strategy type: RollingUpdate - we will see how updates work later. ( RollingUpdate is the default value )
