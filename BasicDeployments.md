@@ -42,7 +42,7 @@ kubectl create -f myDeployment.yaml
 
 deployment.apps/busybox-deployment created
 We use the following command to show the status of our Deployment :
-** kubectl rollout status deployment.v1.apps/busybox-deployment **
+**kubectl rollout status deployment.v1.apps/busybox-deployment**
 
 Waiting for deployment "busybox-deployment" rollout to finish: 7 of 10 updated replicas are available...
 Waiting for deployment "busybox-deployment" rollout to finish: 8 of 10 updated replicas are available...
