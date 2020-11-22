@@ -1,10 +1,10 @@
 # This tutorial will cover the following topics:
 ## Basic Deployment Example
-*	terminationGracePeriodSeconds: 0
-*	Updating the image in a Pod
-*	maxUnavailable and maxSurge
-*	maxSurge: 5 maxUnavailable: 5
-*	maxSurge: 10 maxUnavailable: 10
+* terminationGracePeriodSeconds: 0
+* Updating the image in a Pod
+* maxUnavailable and maxSurge
+* maxSurge: 5 maxUnavailable: 5
+* maxSurge: 10 maxUnavailable: 10
 ## 1) Basic Deployment Example
 nano myDeployment.yaml 
 
@@ -32,12 +32,10 @@ spec:
         image: busybox
         imagePullPolicy: IfNotPresent
         command: ['sh', '-c', 'echo Container 1 is Running ; sleep 3600']
-       
-       
-       ```
-        
-        
-        
+        ``` 
+
+
+         
 template defines the Pod we want
 replicas defines we want 10 identical copies running 
 strategy type: RollingUpdate - we will see how updates work later. ( RollingUpdate is the default value )
@@ -410,19 +408,19 @@ kubectl delete -f myDeployment.yaml
 deployment.apps "busybox-deployment" force deleted
 4) maxUnavailable and maxSurge
 Two critical settings control how a RollingUpdate works
-•	maxUnavailable https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#max-unavailable 
-•	maxSurge https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#max-surge 
+• maxUnavailable https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#max-unavailable 
+• maxSurge https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#max-surge 
 Summary:
-•	maxUnavailable ... the maximum number of Pods that can be unavailable during the update process.
-•	maxSurge ... the maximum number of Pods that can be created IN ADDITION TO the desired number of Pods.
+• maxUnavailable ... the maximum number of Pods that can be unavailable during the update process.
+• maxSurge ... the maximum number of Pods that can be created IN ADDITION TO the desired number of Pods.
 We are going to do several exercises so that you can become familiar with how this works.
 These settings are easy to understand and they do work.
 Unfortunately once a complex update is underway, it is difficult to PRECISELY see those settings are being observed 100% accurately. After these few exercises you will at least get the feeling it works as expected.
 Both these fields are optional, since both have a default value of 25%.
 We are going to set those fields to drastically different values so you can see the effect.
 This exercise:
-•	maxSurge: 5 Pods can be created IN ADDITION TO the desired number of Pods.
-•	maxUnavailable: 5 Pods can be unavailable DURING the update process.
+• maxSurge: 5 Pods can be created IN ADDITION TO the desired number of Pods.
+• maxUnavailable: 5 Pods can be unavailable DURING the update process.
 nano myDeployment.yaml 
 
 apiVersion: apps/v1
@@ -482,9 +480,9 @@ busybox-deployment-8866dfbb4-kr7dt    0/1     ContainerCreating   0          2s 
 busybox-deployment-8866dfbb4-qsvq8    0/1     Pending             0          2s    app=busybox,pod-template-hash=8866dfbb4
 busybox-deployment-8866dfbb4-vsmqp    0/1     Pending             0          2s    app=busybox,pod-template-hash=8866dfbb4
 busybox-deployment-8866dfbb4-wtfnc    0/1     Pending             0          2s    app=busybox,pod-template-hash=8866dfbb4
-•	maxUnavailable: 5 Pods can be unavailable DURING the update process. WORKS AS EXPECTED.
+• maxUnavailable: 5 Pods can be unavailable DURING the update process. WORKS AS EXPECTED.
 Right at top. 5 Pods are right now Terminating = unavailable DURING the update process
-•	maxSurge: 5 Pods can be created IN ADDITION TO the desired number of Pods. WORKS AS EXPECTED.
+• maxSurge: 5 Pods can be created IN ADDITION TO the desired number of Pods. WORKS AS EXPECTED.
 All lines near bottom: 4 Pods are ContainerCreating = created IN ADDITION TO the desired number of Pods
 In theory that should have been 5, but 4 is precise enough.
 Several seconds later:
@@ -546,8 +544,8 @@ kubectl delete -f myDeployment.yaml --force --grace-period=0
 deployment.apps "busybox-deployment" force deleted
 5) maxSurge: 5 maxUnavailable: 5
 This exercise:
-•	maxSurge: 5 Pods can be created IN ADDITION TO the desired number of Pods.
-•	maxUnavailable: ONLY ONE Pods can be unavailable DURING the update process.
+• maxSurge: 5 Pods can be created IN ADDITION TO the desired number of Pods.
+• maxUnavailable: ONLY ONE Pods can be unavailable DURING the update process.
 nano myDeployment.yaml 
 
 apiVersion: apps/v1
@@ -622,9 +620,9 @@ busybox-deployment-8866dfbb4-b5b9h    0/1     ContainerCreating   0          2s 
 busybox-deployment-8866dfbb4-bsbt2    0/1     ContainerCreating   0          2s    app=busybox,pod-template-hash=8866dfbb4
 busybox-deployment-8866dfbb4-cv8vz    0/1     ContainerCreating   0          2s    app=busybox,pod-template-hash=8866dfbb4
 busybox-deployment-8866dfbb4-qrbmc    0/1     ContainerCreating   0          2s    app=busybox,pod-template-hash=8866dfbb4
-•	maxUnavailable: ONLY ONE Pods can be unavailable DURING the update process.
+• maxUnavailable: ONLY ONE Pods can be unavailable DURING the update process.
 Perfect: we see only ONE Terminating Pod.
-•	maxSurge: 5 Pods can be created IN ADDITION TO the desired number of Pods.
+• maxSurge: 5 Pods can be created IN ADDITION TO the desired number of Pods.
 Since one Pod is terminating this 1 plus these 5 can be created: ContainerCreating = 6 Pods. 
 No need to view further details - we saw those 2 settings work as expected.
 Delete Deployment .
@@ -633,8 +631,8 @@ kubectl delete -f myDeployment.yaml --force --grace-period=0
 deployment.apps "busybox-deployment" force deleted
 6) maxSurge: 10 maxUnavailable: 10
 This exercise:
-•	maxSurge: 10 Pods can be created IN ADDITION TO the desired number of Pods.
-•	maxUnavailable: ALL 10 Pods can be unavailable DURING the update process.
+• maxSurge: 10 Pods can be created IN ADDITION TO the desired number of Pods.
+• maxUnavailable: ALL 10 Pods can be unavailable DURING the update process.
 nano myDeployment.yaml 
 
 apiVersion: apps/v1
@@ -695,9 +693,9 @@ busybox-deployment-8866dfbb4-pn2td    0/1     Pending             0          2s 
 busybox-deployment-8866dfbb4-qsq6d    0/1     ContainerCreating   0          2s    app=busybox,pod-template-hash=8866dfbb4
 busybox-deployment-8866dfbb4-rkmtk    0/1     Pending             0          2s    app=busybox,pod-template-hash=8866dfbb4
 busybox-deployment-8866dfbb4-shvxp    0/1     ContainerCreating   0          2s    app=busybox,pod-template-hash=8866dfbb4
-•	maxUnavailable: ALL 10 Pods can be unavailable DURING the update process.
+• maxUnavailable: ALL 10 Pods can be unavailable DURING the update process.
 ALL 10 old Pods are Terminating - as expected.
-•	maxSurge: 10 Pods can be created IN ADDITION TO the desired number of Pods.
+• maxSurge: 10 Pods can be created IN ADDITION TO the desired number of Pods.
 Bottom 10 Pods are the new ones. Only 3 ContainerCreating ... NOT AS EXPECTED
 I expected ALL 10 new Pods to be created at same time. ZERO Pending ones expected.
 3 seconds later ... all new Pods still not ContainerCreating ... unexplained.
