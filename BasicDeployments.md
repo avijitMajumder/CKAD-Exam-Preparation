@@ -37,20 +37,21 @@ spec:
 
          
 *template* defines the Pod we want
-### replicas defines we want 10 identical copies running 
-### strategy type: RollingUpdate - we will see how updates work later. ( RollingUpdate is the default value )
-### Note the second line above kind: Deployment
-### Create the Deployment
-kubectl create -f myDeployment.yaml
+###### replicas defines we want 10 identical copies running 
+###### strategy type: RollingUpdate - we will see how updates work later. ( RollingUpdate is the default value )
+###### Note the second line above kind: Deployment
+###### Create the Deployment
+##### kubectl create -f myDeployment.yaml
 
 deployment.apps/busybox-deployment created
-We use the following command to show the status of our Deployment :
-*kubectl rollout status deployment.v1.apps/busybox-deployment*
+##### We use the following command to show the status of our Deployment :
+```kubectl rollout status deployment.v1.apps/busybox-deployment
 
 Waiting for deployment "busybox-deployment" rollout to finish: 7 of 10 updated replicas are available...
 Waiting for deployment "busybox-deployment" rollout to finish: 8 of 10 updated replicas are available...
 Waiting for deployment "busybox-deployment" rollout to finish: 9 of 10 updated replicas are available...
 deployment "busybox-deployment" successfully rolled out
+```
 All 10 replicas we requested are created simultaneously.
 We'll be using Busybox as our Linux operating system as it is small (only 2MB) and suitable for our applications.
 To create a container in a Pod running busybox is very fast. If you took 10 seconds to cut and paste the previous command all you may see is the final success line.
