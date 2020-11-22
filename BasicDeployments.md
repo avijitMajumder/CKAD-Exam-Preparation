@@ -45,12 +45,14 @@ spec:
 
 deployment.apps/busybox-deployment created
 ##### We use the following command to show the status of our Deployment :
-```kubectl rollout status deployment.v1.apps/busybox-deployment
+```
+kubectl rollout status deployment.v1.apps/busybox-deployment
 
 Waiting for deployment "busybox-deployment" rollout to finish: 7 of 10 updated replicas are available...
 Waiting for deployment "busybox-deployment" rollout to finish: 8 of 10 updated replicas are available...
 Waiting for deployment "busybox-deployment" rollout to finish: 9 of 10 updated replicas are available...
 deployment "busybox-deployment" successfully rolled out
+```
 ```
 All 10 replicas we requested are created simultaneously.
 We'll be using Busybox as our Linux operating system as it is small (only 2MB) and suitable for our applications.
@@ -738,4 +740,5 @@ Delete Deployment when done
 kubectl delete -f myDeployment.yaml --force --grace-period=0
 
 deployment.apps "busybox-deployment" force deleted
+```
 
