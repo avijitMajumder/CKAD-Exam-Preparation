@@ -33,4 +33,5 @@ kubectl get po --no-headers -n $i |awk -F" " '{ if ( $4 >0 ) print $1}' #Get Pod
 kubectl get po -A --no-headers  |awk -F" " '{ if ( $5 >0 ) print $1"/"$2 }' # get namespace/pod name
 
 kubectl get nodes -o json|jq ".items[]|{name:.metadata.name} +.status.capacity"
+kubectl get po nginx1 -o jsonpath='{.metadata.annotations}{"\n"}'
 ```
