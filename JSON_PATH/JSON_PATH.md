@@ -35,4 +35,6 @@ kubectl get po -A --no-headers  |awk -F" " '{ if ( $5 >0 ) print $1"/"$2 }' # ge
 kubectl get nodes -o json|jq ".items[]|{name:.metadata.name} +.status.capacity"
 kubectl get po nginx1 -o jsonpath='{.metadata.annotations}{"\n"}'
 kubectl get pods --field-selector=status.phase!=Running -A --no-headers |awk -F" " '{print $1"/"$2"/"$4}'   # print the pod if pod not running
+kubectl get po -A -o jsonpath='{range .items[?(@.status.containerStatuses[0].restartCount>0)]}{.metadata.namespace} {"\t"}{.metadata.name}{"\n"}{end}'
+
 ```
