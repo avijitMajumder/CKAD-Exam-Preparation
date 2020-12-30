@@ -30,8 +30,9 @@ kubectl get pods --selector=app=cassandra -o jsonpath='{.items[*].metadata.label
 kubectl get pods --field-selector=status.phase=Running #Get ExternalIPs of all nodes
 kubectl get po --no-headers -n $i |awk -F" " '{ if ( $4 >0 ) print $1}' #Get Pod name which are restart count !=0
 
-kubectl get po -A --no-headers  |awk -F" " '{ if ( $5 >0 ) print $1"/"$2 }' # get namespace/pod name
+kubectl get po -A --no-headers  |awk -F" " '{ if ( $5 >0 ) print $1"/"$2 }' # get namespace/pod name if the restart count more than 0
 
 kubectl get nodes -o json|jq ".items[]|{name:.metadata.name} +.status.capacity"
 kubectl get po nginx1 -o jsonpath='{.metadata.annotations}{"\n"}'
+kubectl get pods --field-selector=status.phase!=Running -A --no-headers |awk -F" " '{print $1"/"$2"/"$4}'   # print the pod if pod not running
 ```
