@@ -1,7 +1,3 @@
-
-
-Error from server : pods "json" not found
-master $ k get po -o json
 {
     "apiVersion": "v1",
     "items": [
